@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<! -- saved from url=(0037)https://localhost:44311/WebForm1.aspx -- >
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http - equiv="Content - Type"
+content="text/html; charset=UTF - 8"><title>
+Registration Form
+</title>
+<style type="text/css">
+.auto - style1 {
+width: 100%;
+}
+.auto - style3 {
+text - align: justify;
+height: 46px;
+}
+.auto - style4 {
+height: 23px;
+}
+.auto - style5 {
+width: 441px;
+}
+.auto - style6 {
+height: 23px;
+width: 441px;
+}
+.auto - style7 {
+width: 441px;
+height: 96px;
+}
+.auto - style8 {
+height: 96px;
+
+Sushmita_339
+}
+.error {
+color: red;
+}
+</style>
+</head>
+<body>
+• <form method="post" action="https://localhost:44311/WebForm1.aspx"
+onsubmit="javascript:return WebForm_OnSubmit();" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE"
+value="yWmoQbMsSPpjwvEa/82NNhHyVHeICqQkIzbD4JSOQb1BnDSVKsvzo1Dbddkd2EG7V/jog8TSBjZ
+GgfjB46P9aC6IFhcoBW8tgLr6B863wNuSaTKasz5ZBT73ReB6V5cOUEzbJfCI5JtLV0krsmW8duz9xbek3
+XXCGQQX42IcYBi0DfRiYPZK3OAc9gKXIeLnoawfFZKrXu/hzoub7tkRuGKhw4epcbr6fIyVUS8Mlfe0v/f
+5DLiM1uX+QFhyzdvO6ZbK3DCmQba3SAUPYV5JSh6+/6VZp3SD/LVjPRQSmh9Mov9U9ejUzRDsp+GhGMOxr
+cvUhWma0UAoXv6ZT329vJ529TQJxY9IrkfQlW0ZITCNauf61bzisBTR5tphFU76ey4AlXcIlMH4S85ExMV
+KbeWLA3UDsdGNCIksGchCAo5UahoKlTO2CwhVMd3hDI0xukvInUKN+jZWuEKYZvRJ9dQGSYWtK6yy8eXHl
+skfWsADoSr4qnpp/zQw3eBAe2myxEhlL9N4T4opIvxH69cRC2fjN8nytTqyB+GUTDe6BgaUP3c4KqVukq1
+b7HILNrdsvp/FOdoJN2y50lMdJx2fd8E+zZDq7zk0+PnNMRowi9yWl+mCGY60+mBqgVlFfgg1G+o7sKAvc
+qiO184u5x4HFH0yhJiKXM9n50fi6jKMaNQ+SiKbwUnMTsFpZWEcdaU0dxSDwpC59bybLPfQUQfadecO1lS
+gqzycZp11VM70V0WDF6QapMzDFOXIn6yaL/iMRa1kJ9J3P0CgzbbIE2feZN2NveRhDfm4W95wVibSEsIGp
+CooZAi2O7hlvKvsVOmm3CklQfXUdybWwSxVvBmJxQ8x3uIR9a/dAmlCLaMsuBbe4UYXMlDTfenggan8flo
+9kiw9D48nLX9S2DvsPI0Kr4fIG9ZIWt/ruV+vFkxXEKTNdvr0SjvZ3da76r2TAKt4 oEG04h0Ob9WV0cUCR
+Ej0J+LFSxyw8ILRYip2Tcs7Gl6rUhzrcn9bgFo1OBeU79VpAyFVYHb+duzq/uROtSc4xVa8yO8bzRjLQNi
+BzGR+Jhzy69asl4JYIYb4UoSFNZMP6SHIFNRMvpLBUPjsR2G4bG4CfouLVGIb+eI4Xo6vVdTja3pRL4Psw
+QuOKRQObt3Td06mMb8Up7AZ/w1/VqeNeyg4E5FsR2h4xNXJhQ3FNuuE2ZvjN8RnsG6wgOzb98FY7wlK/lp
+RKrtcIuAyc0HXiN7fXxIDVaXXsYmVqZEE/yxbCLGphodYXo3jeqKo3w4fmR9Pfwy/8Yy6KGvZBgBOLnp7+
+b1tsOd2b1fenreVdzgABNgw8y9rHR672myAuvUvySRMx4KIfPjfaCKX19+fHf+jBvKD1kQiWR26RcNxSPr
+W9Mts/0FvAz0K+nBmooFdgWS0bVCR/8XQIb9BUoLOAYy0e2UUdAnaeBsGElYQ8XjaTAP2gOxkM4jBp2Et+
+r6Ql1VkFUwpyURcIayg7zuX+Zs1e8xrtyyJLATxaCaUf5wvKxy/WN7YV1tgD9nRctxTD2SkXDi7TfFjmXc
+Wc+Fr3EwU7T7tIvNy+YBgZORt51fZEhJF0japitdVtEuqEQKhmqOQ4vCId+iClbDJaCoRauan5T8H0Y+J0
+sLeH5RjC5e6sevhKfYle7D00dV5vB19VPyoYwLAnbE0LEJyTChmrTlWvFcrctG7N0tUbMXMNz8N0hBNdnm
+IYmD9j/I44Inw8MFt73ooD7Lvw8wP0MrQBEzjDGV1WxifQeXlZTK6eX1x+shq4ltse8I2eoBrL+oEGfkar
+/Ny1yNRfGDZ/3qAInspCX3fFSONx+BHcLR9ALoILp4bHlMz9q81apWpdi5ymcgcekoHDm2AMboxTgI7sBQ
+BDj/6YaIHuc3P5XEdkTQkhtk7H7HKKojtG6+T+h719oJNBsjBICHERkDkWIY8CJgCHqFFeb90a5P/PFTKp
+qjik+Zcr5cbuMkEu5ov890G HMrm/k8eorCNcYU4oIqq6Zy+gkAj25CcsG55XV4tebE6u0CvaIkl/Yh3Dp8
+uNQCpjuWAIDmyu37HsocQyxVUlD6XXa6ToX2JkzAF2IZX5YYQqn2zAGbRJb1X7J0o2wr9v3uXy7Cfd23Cv
+w0pMBqcph34XHvVfJR2b4YHel3uKxyPuXCM08aNp8z/x2EGj/2nyPTYLknwKEq70cs11X9X8VxFJIVoroB
+ESi0JkD+PG4lm+T5njaJ9F3GR3SZKIcbmC1acSbsEODZ/3YXypXSKFqZegBcU/IVi/RbKyCgFu7rNJsa3Z
+jqtC6WMBKf2XZ7vKBRkIH52jQs36/gHnrVP8Nm/v4Pjug1Y1qAovwi0so01WQ3X84XdxFHMdqIJZ5O321E
+Ij7Tu7pKp8N43tzK0l+qfoMlh3b5k/iCWgCBUaVFB7t99uvw5HRPLoxbiG3P/MvQyr0mXNtVaKh1pVFD4y
+mzHHNrGuNDMLXz6GkWhIvi2MUKbb1o0A5eAifjxTMkFueoV2pvgz/HYchCHS+KKwOA8uQNrqWiA7scNEwg
+OW8rSz8+7Rmnetne8st5r4GwNKg9AqUTGNSIeAVGIBZUIy8+rhUM2V+Bcae+ZA4KfNUQhUXfziNMOgQBdP
+IPRNqJaNQe64miMvWRzd/hEsKxqg/8kzZvRKTe/yKBDG3CfbXkd3VLoVGEy9ykD14KMjpsQOyAza0xGwWI
+LLZNuKoQHRomzVu/eMZpqO/O6u5+uJZDuRnK5UbEyzZZBZ8OIF3PiR9f2rsuXbl52kKBE3Az4ih8CxOvoz
+E5kOkW+EHmlxX8CCgiY6hkRNFpApSaXFUP+yUg95eB41o1br0j+BX1X9BbwjjhvgUxkfy5/qCBgT84IBE1
+rso/FmH1mITDpZefOeqQG/yqgtCm3nBHCc/INb1YOe3qv5uwoLQEl6OhL/Gv60cxKbM5Pe0N2Q+Kleqfl+
+73hmyUhooTQNNDe1m4nyIdS+XudhS9FiPs95wv8KjCuI491uEmQ8ziwFOHjxZWVFREtkHa+9V319aLyopX
+GIqhuY8mYSbfxuEQo+7Kk6f0ZdJlH3QecviGCGVoE8vq3bEjB5HRYI45Mr51oRCMUmRqUqeX3hAT/NUiFm
+fJs7/3AvAOa5RuH2c7C9DTEtSK0q7csbbe1saUPq1cRWAdA1QOI2aEd1Bzq4me+xQh6e/evLB/+XfJqmft
+sByfBT0pfZyEeqMzgMJbwlV+1B13fKWGhaIwL71k7E8tYpOLeC6069T7qnX5CHhl2c+IzQOOoYbfE3iuP/
+
+Sushmita_339
++NSBoVUPbYV9m7pwd/OzAx0ffG7kW0peJ3xt8gOEvPPtZ8Ul/CG4HiKvWIQKZE6tq+aIS6H3KvZ76lYuAI
+x4DRNDwKMn/ZVc8X6NsWaU1sqBplOIdkqpT+Zr86z0wSeQIyiB+3YqNR4naLlUEpza5+i3r89lhDo5VehI
+OMmwj79CQ58E0J3P9B/tg5XX03iP0ATCbeOBEBBHTdGeIB0egW41Lhxoc9HQTnCkXmpvssoKRg+K7uHgRH
+VGnMA1DQvihyRBlB1oabQiXiM1nTQlauARpY9zqu9oJQZyWt/rHNAumESaqTDQfqiuIqjDftoSIsWiCfb1
+4aGbZssPKTnAoXCq1AAwRzVwAkUKRG3Bqs6tNtCL9ptx2IpFUgW4kfGmkywxTLzvXcAe4SPCu2SOkBiyPo
+r1oJpTaEKLpLctInnHHlU5UVsT2bShLbimmvhfOh5ILsnI7rYgJvqzzw0iFw+v6TSatOMXGX+ty3QLPUVZ
+ZbrEA1+16zwJweJrJqBi1nqJ/llhu34fD7xQ5sM8b1CDgYC7p2XZjCuiZYrb47i3cc/LZJpwFfvGna2Ms7
+vSL4vyIMyT+Dt1HQhXpkzzAXWEjO9cFqyJPnxbgyiIS4jtAi6hEL8a1kwsz95Gvf/4Q2lTty1sAHDYHab0
+vJ1jfLgCpThBLtkBmPZ1/dBLpZUcdG8n4+WpYMGGo6SNs9XtjypeH90xBwJSxYQBAUqtxGkm9kODhkojlw
+5b/STDEiQ9oJWrwDMrjYbsg92pxFsEHuBIGwuh/2GJ2ldkGzCgi32Guc349/Ar1MsdLsv23lwoxJG8rUqP
+EANhfYjByUt4SGVbzAWcSLcxYDBjdQbB1BWDkhkY6WmbPjXwk1vAuekpWWmpvKsEdwU3+860jKsIr6LOcw
+Nx/oq5wg+vQYlZZ9/Qz4WCT5Gkpaqqk4Luh8c2izoIwGpXeZooSuEY5TgZIzbTf/ccOl2q05japwv0iDrk
+3ArvHZQ3w9PvQgt9PPmN3mmdKYqobX/PCPug1S7+wpNHBkjk8C75efpL4gQVIfrNynNS/au7xDJZh9qAPJ
+krReHENtfiDrmNz6YvaXrv9njP/LpOWBAafLAHQ2gKLvufQ1EHr5gx0KlybHpcrwqbDhcQQka/6vQr4y7q
+nmvhH90p9/kTMr8sB+PVFKwK5U6Res3BeOTQ9FYuPUy0XNH7/scNwu+UCpJmLymL9Muvn++KQqwdr2xsa/
+3HHbFpW04j81RmMqmBbPeDvR0Ckc21dJiO8RcU8xzSd6VWIkVUOv76ny2EK/PgW5peYxsjFqylLV6VOocG
+9Z2RyRcHQjX0m6/MhZDw9Vs5bizKEjXw6/6RnUfwWfQHmguwEtpvRnxec45z8vv7RQ=">
+</div>
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+theForm.__EVENTTARGET.value = eventTarget;
+theForm.__EVENTARGUMENT.value = eventArgument;
+theForm.submit();
+}
+}
+//]]>
+</script>
+
+<script src="./Registration Form.html SUSH OUTPUT_files/WebResource.axd"
+type="text/javascript "></script>
+
+<script src="./Registration Form.html SUSH OUTPUT_files/WebResource(1).axd"
+type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false)
+return false;
+return true;
+}
+//]]>
+</script>
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR"
+
+Sushmita_339
+value="B6E7D48B">
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION"
+value="mml/DvLo/We2f8CwOOIXUv6dn7jiStGdLPEYWpNUZ/XTeLTXVjGgda473NxOBa7TENM0GUxefH+
+5RWeIlo3ltrUy+gU+UNtCwP/wbmRXyRt0dEarlyImtJ1r4R5rLfKJGhtW+7a7caZCaUpyIFt+v3PAkUK3L
+Q4a6CEiUMVqlJePlK8UgGSwp8ohrAmokwadE772WP6vyI6ubVtDh0GNP0iCH7D78kGwzo8vHhJeV6J8rFQ
+onp74GU3Qftl217jVhVH0/imE8vyJyKtd0ABwjaBbJUjF9u7R4MmiDHmJtlUGk3XEM/4jxRtXMtKDv/yUG
+0KKmKuBPvfE4S7E5vhONv4yeqZA4TLEtK3mJgkEn+ZJjJHFNk9Flky0om6V/F8vMNNfjBHDXdBaNhrVFkI
+jmMlIag1WDfphy/MibBN9ZiqJ3KLTFTYwr1GRJYxCnDrxajbxI4BAENPFrZTVJFkdzuEE/VsLAckmXelAt
+ElucBl5zhezPEO5Kh5leCQAqZTBjGo/hXzhPNrDcddDbp4ay9ftwZ7trjBv0C8kboOKffwC96Dh8XwGKn8
+hej/LbLPYeYZaeFr73jl9vXQAhF8FHWMnktjzPQ2Gxd7o2Nn1fkUTweZwRbKrjpo04ItYlaKDXIYveO0dP
+pqQAGpnBt57AF0i5tZp+ADvrY8t2JqMKRM=">
+</div>
+<table class="auto - style1">
+<! -- TITLE -- >
+<tbody><tr>
+<td class="auto - style3" colspan="2">
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>
+<h2><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REGISTRATION FORM</strong> </h2>
+</td>
+</tr>
+<! -- NAME -- >
+<tr>
+<td class="auto - style5">
+Name
+</td>
+<td>
+<input name="TextBox1" type="text" value="SUSHMITA NANDANI"
+id="TextBox1" placeholder="Enter your Name">
+<span id="RequiredFieldValidator1" class="error"
+style="visibility:hidden;">Name Cannot Be Empty</span>
+<span id="RegularExpressionValidator1" class="error"
+style="visibility:hidden;">Must be Capital Letter</span>
+</td>
+</tr>
+<! -- ENROLLMENT NUMBER -- >
+<tr>
+<td class="auto - style6">
+Enrollment Number
+</td>
+
+Sushmita_339
+<td class="auto - style4">
+<input name="TextBox8" type="text" value="92400103339" id="TextBox8"
+placeholder="Enter your Enrollment number">
+<span id="RequiredFieldValidator2" class="error"
+style="visibility:hidden;">Enrollment Number is Required</span>
+<span id="RegularExpressionValidator2" class="error"
+style="visibility:hidden;">As per your College Id</span>
+</td>
+</tr>
+<! -- CLASS -- >
+<tr>
+<td class="auto - style6">
+Class
+</td>
+<td class="auto - style4">
+<input name="TextBox3" type="text" value="5EC3" id="TextBox3"
+placeholder="Enter your class">
+<span id="RequiredFieldValidator3" class="error"
+style="visibility:hidden;">Can't be Empty</span>
+</td>
+</tr>
+<! -- GR NO -- >
+<tr>
+<td class="auto - style6">
+Gr No
+</td>
+<td class="auto - style4">
+<input name="TextBox4" type="text" value="127686" id="TextBox4"
+placeholder="Enter your gr no">
+<span id="RequiredFieldValidator4" class="error"
+style="visibility:hidden;">Mandatory</span>
+</td>
+</tr>
+<! -- COURSE -- >
+<tr>
+<td class="auto - style5">
+Course
+</td>
+<td>
+<select name="DropDownList1" id="DropDownList1">
+<option value=""> -- Select Course -- </option>
+<option selected="selected" value="B.tech">B.tech</option>
+<option value="Bsc">Bsc</option>
+<option value="Bba">Bba</option>
+
+Sushmita_339
+<option value="Mba">Mba</option>
+</select>
+<span id="RequiredFieldValidator7" class="error"
+style="visibility:hidden;">Select Atleast One</span>
+</td>
+</tr>
+<! -- SEMESTER -- >
+<tr>
+<td class="auto - style5">
+Semester
+</td>
+<td>
+<select name="DropDownList2" id="DropDownList2">
+<option value=""> -- Select Semester -- </option>
+<option value="1st">1st</option>
+<option value="3rd">3rd</option>
+<option selected="selected" value="5th">5th</option>
+<option value="7th">7th</option>
+</select>
+<span id="RequiredFieldValidator5" class="error"
+style="visibility:hidden;">Select Atleast One</span>
+</td>
+</tr>
+<! -- BRANCH -- >
+<tr>
+<td class="auto - style5">
+Branch
+</td>
+<td>
+<select name="DropDownList3" id="DropDownList3">
+<option value=""> -- Select Branch -- </option>
+<option value="Cse">Cse</option>
+<option selected="selected" value="CE">CE</option>
+<option value="AIML">AIML</option>
+<option value="Data Science">Data Science</option>
+</select>
+<span id="RequiredFieldValidator6" class="error"
+style="visibility:hidden;">Select Atleast One</span>
+</td>
+</tr>
+<! -- MOBILE NUMBER -- >
+<tr>
+<td class="auto - style5">
+Mobile Number
+
+Sushmita_339
+</td>
+<td>
+<input name="TextBox5" type="text" value="6205036728" id="TextBox5"
+placeholder="Enter your mob no">
+<span id="RequiredFieldValidator8" class="error"
+style="visibility:hidden;">Mandatory</span>
+<span id="RegularExpressionValidator3" class="error"
+style="visibility:hidden;">Enter 10 digit mobile number</span>
+</td>
+</tr>
+<! -- GENDER -- >
+<tr>
+<td class="auto - style7">
+Gender
+</td>
+<td class="auto - style8">
+<table id="RadioButtonList1">
+<tbody><tr>
+<td><input id="RadioButtonList1_0" type="radio"
+
+name="RadioButtonList1" value="Male"><label
+for="RadioButtonList1_0">Male</label></td>
+</tr><tr>
+<td><input id="RadioButtonList1_1" type="radio"
+name="RadioButtonList1" value="Female" checked="checked"><label
+for="RadioButtonList1_1">Female</label></td>
+</tr>
+</tbody></table>
+<span id="RequiredFieldValidator9" class="error"
+style="visibility:hidden;">Gender Is Required</span>
+</td>
+</tr>
+<! -- AGE -- >
+<tr>
+<td class="auto - style5">
+Age
+</td>
+<td>
+<input name="TextBox6" type="text" value="19" id="TextBox6"
+placeholder="Enter your age">
+<span id="RequiredFieldValidator10" class="error"
+style="visibility:hidden;">Can't Be Empty</span>
+<span id="RegularExpressionValidator4" class="error"
+style="visibility:hidden;">Enter valid age</span>
+
+Sushmita_339
+</td>
+</tr>
+<! -- EMAIL -- >
+<tr>
+<td class="auto - style5">
+Email Id
+</td>
+<td>
+<input name="TextBox7" type="text"
+value="sushmitanandani.127686@marwadiuniversity.ac.in" id="TextBox7"
+placeholder="Enter your Email Id">
+<span id="RequiredFieldValidator11" class="error"
+style="visibility:hidden;">Can't Be Empty</span>
+<span id="RegularExpressionValidator5" class="error"
+style="visibility:hidden;">Enter valid Email Id</span>
+</td>
+</tr>
+<tr>
+<td class="auto - style5">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="submit" name="Button3" value="SUBMIT"
+onclick="javascript:WebForm_DoPostBackWithOptions(new
+WebForm_PostBackOptions(&quot;Button3&quot;, &quot;&quot;, true, &quot;&quot;,
+&quot;&quot;, false, false))" id="Button3">
+</td>
+<td>
+<input type="submit" name="Button2" value="RESET"
+onclick="javascript:WebForm_DoPostBackWithOptions(new
+WebForm_PostBackOptions(&quot;Button2&quot;, &quot;&quot;, true, &quot;&quot;,
+&quot;&quot;, false, false))" id="Button2">
+</td>
+</tr>
+</tbody></table>
+<br>
+<br>
+
+<br>
+<br>
+
+Sushmita_339
+<div>
+<table cellspacing="0" cellpadding="8" rules="all" id="GridView1"
+style="border - color:Black;border - width:1px;border - style:solid;width:100%;border -
+collapse:collapse;">
+<tbody><tr>
+<th scope="col">Name</th><th scope="col">Enrollment
+Number</th><th scope="col">Class</th><th scope="col">GR No</th><th
+scope="col">Course</th><th scope="col">Semester</th><th scope="col">Branch</th><th
+scope="col">Mobile Number</th><th scope="col">Gender</th><th
+scope="col">Age</th><th scope="col">Email</th>
+
+</tr><tr>
+<td>SUSHMITA
+
+NANDANI</td><td>92400103339</td><td>5EC3</td><td>127686</td><td>B.tech</td><td>5th
+</td><td>CE</td><td>6205036728</td><td>Female</td><td>19</td><td>sushmitanandani.1
+27686@marwadiuniversity.ac.in</td>
+
+</tr>
+</tbody></table>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var Page_Validators = new
+Array(document.getElementById("RequiredFieldValidator1"),
+document.getElementById ("RegularExpressionValidator1"),
+document.getElementById("RequiredFieldValidator2"),
+document.getElementById("RegularExpressionValidator2"),
+document.getElementById("RequiredFieldValidator3"),
+document.getElementById("RequiredFieldValidator4"),
+document.getElementById("RequiredFieldValidator7"),
+document.getElementById("RequiredFieldValidator5"),
+document.getElementById("RequiredFieldValidator6"),
+document.getElementById("RequiredFieldValidator8"),
+document.getElementById("RegularExpressionValidator3"),
+document.getElementById("RequiredFieldValidator9"),
+document.getElementById("RequiredFieldValidator10"),
+document.getElementById("RegularExpressionValidator4"),
+document.getElementById("RequiredFieldValidator11"),
+document.getElementById("RegularExpressionValidator5"));
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+var RequiredFieldValidator1 = document.all ?
+document.all["RequiredFieldValidator1"] :
+document.getElementById("RequiredFieldValidator1");
+RequiredFieldValidator1.controltovalidate = "TextBox1";
+RequiredFieldValidator1.errormessage = "Name Cannot Be Empty";
+RequiredFieldValidator1.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator1.initialvalue = "";
+var RegularExpressionValidator1 = document.all ?
+document.all["RegularExpressionValidator1"] :
+document.getElementById("RegularExpressionValidator1");
+
+Sushmita_339
+RegularExpressionValidator1.controltovalidate = "TextBox1";
+RegularExpressionValidator1.errormessage = "Must be Capital Letter";
+RegularExpressionValidator1.evaluationfunction =
+"RegularExpressionValidatorEvaluateIsValid";
+RegularExpressionValidator1.validationexpression = "^[A - Z][a - zA- Z ]*$";
+var RequiredFieldValidator2 = document.all ?
+document.all["RequiredFieldValidator2"] :
+document.getElementById("RequiredFieldValidator2");
+RequiredFieldValidator2.controltovalidate = "TextBox8";
+RequiredFieldValidator2.errormessage = "Enrollment Number is Required";
+RequiredFieldValidator2.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator2.initialvalue = "";
+var RegularExpressionValidator2 = document.all ?
+document.all["RegularExpressionValidator2"] :
+document.getElementById("RegularExpressionValidator2");
+RegularExpressionValidator2.controltovalidate = "TextBox8";
+RegularExpressionValidator2.errormessage = "As per your College Id";
+RegularExpressionValidator2.evaluationfunction =
+"RegularExpressionValidatorEvaluateIsValid";
+RegularExpressionValidator2.validationexpression = "^[A - Za- z0- 9]+$";
+var RequiredFieldValidator3 = document.all ?
+document.all["RequiredFieldValidator3"] :
+document.getElementById("RequiredFieldValidator3");
+RequiredFieldValidator3.controltovalidate = "TextBox3";
+RequiredFieldValidator3.errormessage = "Can \'t be Empty";
+RequiredFieldValidator3.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator3.initialvalue = "";
+var RequiredFieldValidator4 = document.all ?
+document.all ["RequiredFieldValidator4"] :
+document.getElementById("RequiredFieldValidator4");
+RequiredFieldValidator4.controltovalidate = "TextBox4";
+RequiredFieldValidator4.errormessage = "Mandatory";
+RequiredFieldValidator4.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator4.initialvalue = "";
+var RequiredFieldValidator7 = document.all ?
+document.all["RequiredFieldValidator7"] :
+document.getElementById("RequiredFieldValidator7");
+RequiredFieldValidator7.controltovalidate = "DropDownList1";
+RequiredFieldValidator7.errormessage = "Select Atleast One";
+RequiredFieldValidator7.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator7.initialvalue = "";
+var RequiredFieldValidator5 = document.all ?
+document.all["RequiredFieldValidator5"] :
+document.getElementById("RequiredFieldValidator5");
+RequiredFieldValidator5.controltovalidate = "DropDownList2";
+RequiredFieldValidator5.errormessage = "Select Atleast One";
+RequiredFieldValidator5.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator5.initialvalue = "";
+var RequiredFieldValidator6 = document.all ?
+document.all["RequiredFieldValidator6"] :
+
+Sushmita_339
+document.getElementById("RequiredFieldValidator6");
+RequiredFieldValidator6.controltovalidate = "DropDownList3";
+RequiredFieldValidator6.errormessage = "Select Atleast One";
+RequiredFieldValidator6.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator6.initialvalue = "";
+var RequiredFieldValidator8 = document.all ?
+document.all["RequiredFieldValidator8"] :
+document.getElementById("RequiredFieldValidator8");
+RequiredFieldValidator8.controltovalidate = "TextBox5";
+RequiredFieldValidator8.errormessage = "Mandatory";
+RequiredFieldValidator8.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator8.initialvalue = "";
+var RegularExpressionValidator3 = document.all ?
+document.all ["RegularExpressionValidator3"] :
+document.getElementById("RegularExpressionValidator3");
+RegularExpressionValidator3.controltovalidate = "TextBox5";
+RegularExpressionValidator3.errormessage = "Enter 10 digit mobile number";
+RegularExpressionValidator3.evaluationfunction =
+"RegularExpressionValidatorEvaluateIsValid";
+RegularExpressionValidator3.validationexpression = "^[0 - 9]{10}$";
+var RequiredFieldValidator9 = document.all ?
+document.all["RequiredFieldValidator9"] :
+document.getElementById ("RequiredFieldValidator9");
+RequiredFieldValidator9.controltovalidate = "RadioButtonList1";
+RequiredFieldValidator9.errormessage = "Gender Is Required";
+RequiredFieldValidator9.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator9.initialvalue = "";
+var RequiredFieldValidator10 = document.all ?
+document.all["RequiredFieldValidator10"] :
+document.getElementById("RequiredFieldValidator10");
+RequiredFieldValidator10.controltovalidate = "TextBox6";
+RequiredFieldValidator10.errormessage = "Can \'t Be Empty";
+RequiredFieldValidator10.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator10.initialvalue = "";
+var RegularExpressionValidator4 = document.all ?
+document.all["RegularExpressionValidator4"] :
+document.getElementById("RegularExpressionValidator4");
+RegularExpressionValidator4.controltovalidate = "TextBox6";
+RegularExpressionValidator4.errormessage = "Enter valid age";
+RegularExpressionValidator4.evaluationfunction =
+"RegularExpressionValidatorEvaluateIsValid";
+RegularExpressionValidator4.validationexpression = "^[0 - 9]{1,3}$";
+var RequiredFieldValidator11 = document.all ?
+document.all["RequiredFieldValidator11"] :
+document.getElementById("RequiredFieldValidator11");
+RequiredFieldValidator11.controltovalidate = "TextBox7";
+RequiredFieldValidator11.errormessage = "Can \'t Be Empty";
+RequiredFieldValidator11.evaluationfunction =
+"RequiredFieldValidatorEvaluateIsValid";
+RequiredFieldValidator11.initialvalue = "";
+var RegularExpressionValidator5 = document.all ?
+
+Sushmita_339
+document.all["RegularExpressionValidator5"] :
+document.getElementById("RegularExpressionValidator5");
+RegularExpressionValidator5.controltovalidate = "TextBox7";
+RegularExpressionValidator5.errormessage = "Enter valid Email Id";
+RegularExpressionValidator5.evaluationfunction =
+"RegularExpressionValidatorEvaluateIsValid";
+RegularExpressionValidator5.validationexpression =
+"^[^@\\s]+@[^@\\s]+ \\.[^@\\s]+$";
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+ValidatorOnLoad();
+}
+function ValidatorOnSubmit() {
+if (Page_ValidationActive) {
+return ValidatorCommonOnSubmit();
+}
+else {
+return true;
+}
+}
+//]]>
+</script>
+</form>
+
+</body></html>
