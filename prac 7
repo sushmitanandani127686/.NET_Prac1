@@ -1,0 +1,163 @@
+Experiment 7
+
+AIM: Develop Feedback Management Module using MVC Layout, Partial
+View & Validation
+(HTML Helpers, Validation, Layouts)
+Source code: Model :Feedbackform.cs
+Code:
+using System.ComponentModel.DataAnnotations;
+
+ namespace FeedbackManagement.Models
+ {
+ public class Feedback
+ {
+ public int Id { get; set; }
+
+ [Required]
+ public string Name { get; set; }
+
+ [Required]
+ public string Message { get; set; }
+
+ [Range(1, 5)]
+ public int Rating { get; set; }
+ }
+ }
+ Code :Controllers : FeedBackControllercs
+ using System.Collections.Generic;
+ using System.Web.Mvc;
+ using FeedbackManagement.Models;
+
+ namespace FeedbackManagement
+ {
+ public class FeedbackController : Controller
+ {
+ static List<Feedback> feedbacks = new List<Feedback>();
+
+ public ActionResult Index()
+ {
+ return View(feedbacks);
+ }
+
+ public ActionResult Create()
+ {
+ return View();
+ }
+
+ [HttpPost]
+ public ActionResult Create(Feedback feedback)
+ {
+ if (ModelState.IsValid)
+ {
+ feedback.Id = feedbacks.Count + 1;
+ feedbacks.Add(feedback);
+
+ return RedirectToAction("Index");
+ }
+
+ return View(feedback);
+ }
+ }
+ }
+ Code :Views : Index.html
+@model IEnumerable<FeedbackManagement.Models.Feedback>
+
+ <h2>Feedback List</h2>
+
+ <a href="/Feedback/Create">Give Feedback</a>
+
+ <hr />
+
+ @foreach (var item in Model)
+ {
+ @Html.Partial("_Feedback", item)
+ }
+ Code :Views : Feedback.cshtml
+@model FeedbackManagement.Models.Feedback
+
+ <p>
+ <b>Name:</b> @Model.Name
+ </p>
+
+ <p>
+ <b>Message:</b> @Model.Message
+ </p>
+
+ <p>
+ <b>Rating:</b> @Model.Rating / 5
+ </p>
+
+ <hr />
+
+Code :Views : Create.cshtml
+@model FeedbackManagement.Models.Feedback
+
+ <h2>Give Feedback</h2>
+
+ @using (Html.BeginForm())
+ {
+ <p>
+ @Html.LabelFor(x => x.Name)
+ <br />
+ @Html.TextBoxFor(x => x.Name)
+ <br />
+ @Html.ValidationMessageFor(x => x.Name)
+ </p>
+
+ <p>
+ @Html.LabelFor(x => x.Message)
+ <br />
+ @Html.TextAreaFor(x => x.Message)
+ <br />
+ @Html.ValidationMessageFor(x => x.Message)
+ </p>
+
+ <p>
+ @Html.LabelFor(x => x.Rating)
+ <br />
+ @Html.TextBoxFor(x => x.Rating)
+ <br />
+ @Html.ValidationMessageFor(x => x.Rating)
+ </p>
+
+ <input type="submit" value="Submit" />
+ }
+Code :Views :Shared : _Layout.cshtml
+<!DOCTYPE html>
+ <html>
+ <head>
+ <title>Feedback Management</title>
+ </head>
+
+ <body>
+
+ <h1>Feedback Management System</h1>
+
+ <a href="/Feedback/Index">Home</a> |
+ <a href="/Feedback/Create">Give Feedback</a>
+
+ <hr />
+
+ @RenderBody()
+
+ </body>
+ </html>
+Code: Global.asax.cs
+using System.Web.Mvc;
+using System.Web.Routing;
+using FeedbackManagement;
+namespace WebApplication8
+{
+    public class MvcApplication : System.Web.HttpApplication
+    {
+        protected void Application_Start()
+        {
+            AreaRegistration.RegisterAllAreas();
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+        }
+    }
+}
+
+
+
+-
