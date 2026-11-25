@@ -1,0 +1,1059 @@
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'SmartCampusDB') 
+BEGIN 
+CREATE DATABASE SmartCampusDB; 
+PRINT 'Database SmartCampusDB created successfully.'; 
+END 
+ELSE 
+BEGIN 
+PRINT 'Database SmartCampusDB already exists.'; 
+END 
+GO 
+USE SmartCampusDB; 
+GO 
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 
+'ServiceRequests') 
+BEGIN 
+CREATE TABLE ServiceRequests ( 
+RequestId INT IDENTITY(1,1) PRIMARY KEY, 
+StudentName NVARCHAR(100) NOT NULL, 
+Department NVARCHAR(100) NOT NULL, 
+ServiceType NVARCHAR(100) NOT NULL, 
+Description NVARCHAR(MAX) NOT NULL, 
+Priority NVARCHAR(50) NOT NULL, 
+Status NVARCHAR(50) DEFAULT 'Pending', 
+RequestDate DATETIME DEFAULT GETDATE() 
+); 
+PRINT 'Table ServiceRequests created successfully.'; 
+Tejas  (3122) 
+BATCH: A 
+|99
+99 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+INSERT INTO ServiceRequests (StudentName, Department, ServiceType, Description, 
+Priority, Status, RequestDate) 
+VALUES  
+(N'Tejas Andodariya', N'Computer Engineering', N'IT Support', N'Wi
+Fi connection issue 
+in Lab 3', N'High', N'In Progress', GETDATE()), 
+(N'Rahul Sharma', N'Information Technology', N'Library', N'Need access to IEEE digital 
+library', N'Medium', N'Pending', GETDATE()), 
+(N'Priya Patel', N'Civil Engineering', N'Maintenance', N'Projector not working in Room 
+204', N'Low', N'Completed', GETDATE()); 
+PRINT 'Sample data inserted successfully.'; 
+END 
+ELSE 
+BEGIN 
+PRINT 'Table ServiceRequests already exists.'; 
+Tejas  (3122) 
+BATCH: A 
+|100
+100 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+Source: ServiceRequest.cs 
+using Microsoft.AspNetCore.Mvc; 
+using StudentCampusPortal.DAL; 
+using StudentCampusPortal.Models; 
+using System; 
+namespace StudentCampusPortal.Controllers 
+{ 
+public class ServiceRequestController : Controller 
+{ 
+private readonly ServiceRequestDAL _dal; 
+public ServiceRequestController(ServiceRequestDAL dal) 
+{ 
+_dal = dal; 
+} 
+public IActionResult Index() 
+{ 
+var list = _dal.GetAll(); 
+return View(list); 
+} 
+public IActionResult Details(int id) 
+{ 
+var req = _dal.GetById(id); 
+if (req == null) 
+{ 
+return NotFound(); 
+} 
+return View(req); 
+} 
+public IActionResult Create() 
+{ 
+return View(new ServiceRequest()); 
+Tejas  (3122) 
+BATCH: A 
+|101
+101 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+} 
+[HttpPost] 
+[ValidateAntiForgeryToken] 
+public IActionResult Create(ServiceRequest request) 
+{ 
+if (ModelState.IsValid) 
+{ 
+_dal.Insert(request); 
+TempData["SuccessMessage"] = "Service request submitted successfully!"; 
+return RedirectToAction(nameof(Index)); 
+} 
+return View(request); 
+} 
+public IActionResult UpdateStatus(int id) 
+{ 
+var req = _dal.GetById(id); 
+if (req == null) 
+{ 
+return NotFound(); 
+} 
+ViewBag.RequestId = id; 
+ViewBag.CurrentStatus = req.Status; 
+ViewBag.StudentName = req.StudentName; 
+ViewBag.ServiceType = req.ServiceType; 
+return View(req); 
+} 
+[HttpPost] 
+[ValidateAntiForgeryToken] 
+public IActionResult UpdateStatus(int id, string status) 
+{ 
+if (!string.IsNullOrEmpty(status)) 
+Tejas  (3122) 
+BATCH: A 
+|102
+102 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+{ 
+_dal.UpdateStatus(id, status); 
+TempData["SuccessMessage"] = $"Request #{id} status updated to 
+'{status}'!"; 
+} 
+return RedirectToAction(nameof(Index)); 
+ModelState.AddModelError("", "Please select a valid status."); 
+return View(); 
+} 
+[HttpPost] 
+[ValidateAntiForgeryToken] 
+public IActionResult Delete(int id) 
+{ 
+_dal.Delete(id); 
+TempData["SuccessMessage"] = $"Request #{id} deleted successfully."; 
+return RedirectToAction(nameof(Index)); 
+} 
+} 
+} 
+Tejas  (3122) 
+BATCH: A 
+|103
+103 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+Source: ServiceRequestDAL.cs 
+using Microsoft.Data.SqlClient; 
+using Microsoft.Extensions.Configuration; 
+using StudentCampusPortal.Models; 
+using System; 
+using System.Collections.Generic; 
+using System.Data; 
+namespace StudentCampusPortal.DAL 
+{ 
+public class ServiceRequestDAL 
+{ 
+private readonly string _connectionString; 
+public ServiceRequestDAL(IConfiguration configuration) 
+{ 
+_connectionString = configuration.GetConnectionString("CampusConnection") 
+?? "Data Source=(localdb)
+\
+\
+MSSQLLocalDB;Initial 
+Catalog=SmartCampusDB;Integrated Security=True;TrustServerCertificate=True"; 
+} 
+public List<ServiceRequest> GetAll() 
+{ 
+var list = new List<ServiceRequest>(); 
+using (var con = new SqlConnection(_connectionString)) 
+{ 
+const string query = "SELECT RequestId, StudentName, Department, 
+ServiceType, Description, Priority, Status, RequestDate FROM ServiceRequests ORDER BY 
+RequestId DESC"; 
+using (var cmd = new SqlCommand(query, con)) 
+{ 
+con.Open(); 
+using (var dr = cmd.ExecuteReader()) 
+Tejas  (3122) 
+BATCH: A 
+|104
+104 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+{ 
+while (dr.Read()) 
+{ 
+list.Add(new ServiceRequest 
+{ 
+RequestId = Convert.ToInt32(dr["RequestId"]), 
+StudentName = dr["StudentName"]?.ToString() ?? 
+string.Empty, 
+Department = dr["Department"]?.ToString() ?? string.Empty, 
+ServiceType = dr["ServiceType"]?.ToString() ?? 
+string.Empty, 
+string.Empty, 
+Description = dr["Description"]?.ToString() ?? 
+Priority = dr["Priority"]?.ToString() ?? "Medium", 
+Status = dr["Status"]?.ToString() ?? "Pending", 
+RequestDate = dr["RequestDate"] != DBNull.Value ? 
+Convert.ToDateTime(dr["RequestDate"]) : DateTime.Now 
+}); 
+} 
+} 
+} 
+} 
+return list; 
+} 
+public ServiceRequest? GetById(int id) 
+{ 
+using (var con = new SqlConnection(_connectionString)) 
+{ 
+const string query = "SELECT RequestId, StudentName, Department, 
+ServiceType, Description, Priority, Status, RequestDate FROM ServiceRequests WHERE 
+RequestId = @RequestId"; 
+using (var cmd = new SqlCommand(query, con)) 
+{ 
+cmd.Parameters.AddWithValue("@RequestId", id); 
+Tejas  (3122) 
+BATCH: A 
+|105
+105 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+con.Open(); 
+using (var dr = cmd.ExecuteReader()) 
+{ 
+if (dr.Read()) 
+{ 
+return new ServiceRequest 
+{ 
+RequestId = Convert.ToInt32(dr["RequestId"]), 
+StudentName = dr["StudentName"]?.ToString() ?? 
+string.Empty, 
+Department = dr["Department"]?.ToString() ?? string.Empty, 
+ServiceType = dr["ServiceType"]?.ToString() ?? 
+string.Empty, 
+string.Empty, 
+Description = dr["Description"]?.ToString() ?? 
+Priority = dr["Priority"]?.ToString() ?? "Medium", 
+Status = dr["Status"]?.ToString() ?? "Pending", 
+RequestDate = dr["RequestDate"] != DBNull.Value ? 
+Convert.ToDateTime(dr["RequestDate"]) : DateTime.Now 
+}; 
+} 
+} 
+} 
+} 
+return null; 
+} 
+public int Insert(ServiceRequest request) 
+{ 
+using (var con = new SqlConnection(_connectionString)) 
+{ 
+const string query = @" 
+INSERT INTO ServiceRequests 
+(StudentName, Department, ServiceType, Description, Priority, Status, 
+RequestDate) 
+VALUES 
+Tejas  (3122) 
+BATCH: A 
+|106
+106 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+(@StudentName, @Department, @ServiceType, @Description, @Priority, 
+@Status, @RequestDate); 
+SELECT SCOPE_IDENTITY();"; 
+using (var cmd = new SqlCommand(query, con)) 
+{ 
+cmd.Parameters.AddWithValue("@StudentName", request.StudentName); 
+cmd.Parameters.AddWithValue("@Department", request.Department); 
+cmd.Parameters.AddWithValue("@ServiceType", request.ServiceType); 
+cmd.Parameters.AddWithValue("@Description", request.Description); 
+cmd.Parameters.AddWithValue("@Priority", 
+string.IsNullOrEmpty(request.Priority) ? "Medium" : request.Priority); 
+cmd.Parameters.AddWithValue("@Status", 
+string.IsNullOrEmpty(request.Status) ? "Pending" : request.Status); 
+cmd.Parameters.AddWithValue("@RequestDate", DateTime.Now); 
+con.Open(); 
+var result = cmd.ExecuteScalar(); 
+return result != null && result != DBNull.Value ? 
+Convert.ToInt32(result) : 0; 
+} 
+} 
+} 
+public bool UpdateStatus(int id, string status) 
+{ 
+using (var con = new SqlConnection(_connectionString)) 
+{ 
+const string query = @" 
+UPDATE ServiceRequests 
+SET Status = @Status 
+WHERE RequestId = @RequestId"; 
+using (var cmd = new SqlCommand(query, con)) 
+{ 
+cmd.Parameters.AddWithValue("@Status", status); 
+cmd.Parameters.AddWithValue("@RequestId", id); 
+Tejas  (3122) 
+BATCH: A 
+|107
+107 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+con.Open(); 
+int rows = cmd.ExecuteNonQuery(); 
+return rows > 0; 
+} 
+} 
+} 
+public bool Delete(int id) 
+{ 
+using (var con = new SqlConnection(_connectionString)) 
+{ 
+const string query = "DELETE FROM ServiceRequests WHERE RequestId = 
+@RequestId"; 
+using (var cmd = new SqlCommand(query, con)) 
+{ 
+cmd.Parameters.AddWithValue("@RequestId", id); 
+con.Open(); 
+int rows = cmd.ExecuteNonQuery(); 
+return rows > 0; 
+} 
+} 
+} 
+} 
+} 
+Tejas  (3122) 
+BATCH: A 
+|108
+108 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+Source: ServiceRequestController.cs 
+using Microsoft.AspNetCore.Mvc; 
+using StudentCampusPortal.DAL; 
+using StudentCampusPortal.Models; 
+using System; 
+namespace StudentCampusPortal.Controllers 
+{ 
+public class ServiceRequestController : Controller 
+{ 
+private readonly ServiceRequestDAL _dal; 
+public ServiceRequestController(ServiceRequestDAL dal) 
+{ 
+_dal = dal; 
+} 
+public IActionResult Index() 
+{ 
+var list = _dal.GetAll(); 
+return View(list); 
+} 
+public IActionResult Details(int id) 
+{ 
+var req = _dal.GetById(id); 
+if (req == null) 
+{ 
+return NotFound(); 
+} 
+return View(req); 
+} 
+public IActionResult Create() 
+{ 
+Tejas  (3122) 
+BATCH: A 
+|109
+109 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+return View(new ServiceRequest()); 
+} 
+[HttpPost] 
+[
+ValidateAntiForgeryToken] 
+public IActionResult Create(ServiceRequest request) 
+{ 
+if (ModelState.IsValid) 
+{ 
+_dal.Insert(request); 
+TempData["SuccessMessage"] = "Service request submitted successfully!"; 
+return RedirectToAction(nameof(Index)); 
+} 
+return View(request); 
+} 
+public IActionResult UpdateStatus(int id) 
+{ 
+var 
+req = _dal.GetById(id); 
+if (req == null) 
+{ 
+return NotFound(); 
+} 
+ViewBag.RequestId = id; 
+ViewBag.CurrentStatus = req.Status; 
+ViewBag.StudentName = req.StudentName; 
+ViewBag.ServiceType = req.ServiceType; 
+return View(req); 
+} 
+[HttpPost] 
+[ValidateAntiForgeryToken] 
+public IActionResult UpdateStatus(int id, string status) 
+{ 
+Tejas  (3122) 
+BATCH: A 
+|110
+110 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+if (!string.IsNullOrEmpty(status)) 
+{ 
+_dal.UpdateStatus(id, status); 
+TempData["SuccessMessage"] = $"Request #{id} status updated to 
+'{status}'!"; 
+} 
+return RedirectToAction(nameof(Index)); 
+ModelState.AddModelError("", "Please select a valid status."); 
+return View(); 
+} 
+[HttpPost] 
+[ValidateAntiForgeryToken] 
+public 
+IActionResult Delete(int id) 
+{ 
+_dal.Delete(id); 
+TempData["SuccessMessage"] = $"Request #{id} deleted successfully."; 
+return RedirectToAction(nameof(Index)); 
+} 
+} 
+} 
+Tejas  (3122) 
+BATCH: A 
+|111
+111 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+Source: ServiceApiController.cs 
+using Microsoft.AspNetCore.Mvc; 
+using StudentCampusPortal.DAL; 
+using StudentCampusPortal.Models; 
+using System.Collections.Generic; 
+namespace StudentCampusPortal.Controllers 
+{ 
+[Route("api/[controller]")] 
+[ApiController] 
+public class ServiceApiController : ControllerBase 
+{ 
+private readonly ServiceRequestDAL _dal; 
+public ServiceApiController(ServiceRequestDAL dal) 
+{ 
+_dal = dal; 
+} 
+[HttpGet] 
+public ActionResult<IEnumerable<ServiceRequest>> GetRequests() 
+{ 
+var requests = _dal.GetAll(); 
+return Ok(requests); 
+} 
+[HttpGet("{id:int}")] 
+public ActionResult<ServiceRequest> GetRequest(int id) 
+{ 
+var req = _dal.GetById(id); 
+if (req == null) 
+{ 
+return NotFound(new { message = $"Request with ID {id} not found." }); 
+} 
+return Ok(req); 
+Tejas  (3122) 
+BATCH: A 
+|112
+112 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+} 
+[HttpPost] 
+public IActionResult CreateRequest([FromBody] ServiceRequest request) 
+{ 
+if (!ModelState.IsValid) 
+{ 
+return BadRequest(ModelState); 
+} 
+int newId = _dal.Insert(request); 
+request.RequestId = newId; 
+return CreatedAtAction(nameof(GetRequest), new { id = newId }, new 
+{ 
+message = "Service request created successfully", 
+data = request 
+}); 
+} 
+[HttpPut("UpdateStatus/{id:int}")] 
+public IActionResult UpdateStatus(int id, [FromBody] StatusUpdateDto dto) 
+{ 
+if (dto == null || string.IsNullOrWhiteSpace(dto.Status)) 
+{ 
+return BadRequest(new { message = "Status is required." }); 
+} 
+bool updated = _dal.UpdateStatus(id, dto.Status); 
+if (!updated) 
+{ 
+return NotFound(new { message = $"Request with ID {id} not found." }); 
+} 
+return Ok(new { message = $"Status for request #{id} updated to '{dto.Status}' 
+successfully." }); 
+} 
+Tejas  (3122) 
+BATCH: A 
+|113
+113 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+} 
+public class StatusUpdateDto 
+{ 
+public string Status { get; set; } = string.Empty; 
+} 
+} 
+Tejas  (3122) 
+BATCH: A 
+|114
+114 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+Tejas  (3122) BATCH: A 
+115 
+ 
+ 
+Source: Index.cshtml 
+@model IEnumerable<StudentCampusPortal.Models.ServiceRequest> 
+ 
+@{ 
+    ViewData["Title"] = "Campus Dashboard"; 
+} 
+ 
+<div class="row mb-4"> 
+    <div class="col-12"> 
+        <div class="p-4 bg-white rounded-3 shadow-sm border-start border-primary border-4"> 
+            <h1 class="display-6 fw-bold text-primary mb-1">Smart Campus Service 
+Portal</h1> 
+            <p class="text-muted mb-0">Practical 11: ASP.NET Core MVC &amp; Web API 
+Integration with SQL Server Database</p> 
+        </div> 
+    </div> 
+</div> 
+ 
+<div class="row g-3 mb-4"> 
+    <div class="col-md-3 col-sm-6"> 
+        <div class="card border-0 shadow-sm text-center py-3 bg-white"> 
+            <div class="card-body"> 
+                <span class="text-secondary text-uppercase fw-semibold small">Total 
+Requests</span> 
+                <h2 class="display-5 fw-bold text-primary my-2">@ViewBag.TotalCount</h2> 
+                <a asp-controller="ServiceRequest" asp-action="Index" class="btn btn-sm 
+btn-light border">View All &rarr;</a> 
+            </div> 
+        </div> 
+    </div> 
+    <div class="col-md-3 col-sm-6"> 
+        <div class="card border-0 shadow-sm text-center py-3 bg-white"> 
+            <div class="card-body"> 
+                <span class="text-secondary text-uppercase fw-semibold 
+small">Pending</span> 
+                <h2 class="display-5 fw-bold text-warning my-2">@ViewBag.PendingCount</h2> 
+|115
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+Tejas  (3122) BATCH: A 
+116 
+ 
+ 
+                <span class="badge bg-warning text-dark">Awaiting Action</span> 
+            </div> 
+        </div> 
+    </div> 
+    <div class="col-md-3 col-sm-6"> 
+        <div class="card border-0 shadow-sm text-center py-3 bg-white"> 
+            <div class="card-body"> 
+                <span class="text-secondary text-uppercase fw-semibold small">In 
+Progress</span> 
+                <h2 class="display-5 fw-bold text-info my-2">@ViewBag.InProgressCount</h2> 
+                <span class="badge bg-info text-dark">Under Processing</span> 
+            </div> 
+        </div> 
+    </div> 
+    <div class="col-md-3 col-sm-6"> 
+        <div class="card border-0 shadow-sm text-center py-3 bg-white"> 
+            <div class="card-body"> 
+                <span class="text-secondary text-uppercase fw-semibold 
+small">Completed</span> 
+                <h2 class="display-5 fw-bold text-success my
+2">@ViewBag.CompletedCount</h2> 
+                <span class="badge bg-success">Resolved</span> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
+ 
+<div class="card border-0 shadow-sm mb-4"> 
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items
+center"> 
+        <h5 class="mb-0 fw-bold">Recent Service Requests</h5> 
+        <div> 
+            <a asp-controller="ServiceRequest" asp-action="Create" class="btn btn-primary 
+btn-sm me-2"> 
+                + Submit New Request 
+            </a> 
+|116
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+<a asp
+secondary btn--
+controller="ServiceRequest" asp
+sm"> 
+View All 
+</a> 
+</div> 
+</div> 
+<div class="card
+<div class="table
+responsive"> 
+<table class="table table
+<thead class="table
+</tr> 
+</thead> 
+<tbody> 
+@if (Model != null && Model.Any()) 
+{ 
+@foreach (var item in Model) 
+{ 
+<tr> 
+<td class="ps
+action="Index" class="btn btn
+body p
+<tr> 
+0"> --
+hover align
+light"> 
+<th class="ps
+3">ID</th> 
+<th>Student Name</th> 
+<th>Department</th> 
+<th>Service Type</th> 
+<th>Priority</th> 
+<th>Status</th> 
+<th>Date</th> 
+<th class="text
+end pe
+middle mb
+3">Action</th> 
+3 fw--
+outline
+0"> 
+semibold">#@item.RequestId</td> 
+<td>@item.StudentName</td> 
+<td>@item.Department</td> 
+<td><span class="badge bg
+border">@item.ServiceType</span></td> 
+<td> 
+light text
+@if (item.Priority == "High") 
+{ 
+<span class="badge bg
+} --
+dark 
+danger">High</span> 
+Tejas  (3122) 
+BATCH: A 
+|117
+117 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+else if (item.Priority == "Medium") 
+{ 
+<span class="badge bg
+dark">Medium</span> 
+} 
+else 
+{ 
+warning text
+<span class="badge bg--
+secondary">Low</span> 
+} 
+</td> 
+<td> 
+@if (item.Status == "Completed") 
+{ 
+<span class="badge bg
+success">Completed</span> 
+} 
+else if (item.Status == "In Progress") 
+{ 
+<span class="badge bg
+info text
+Progress</span> 
+} 
+else 
+{ 
+<span class="badge bg--
+dark">In 
+warning text
+dark">Pending</span> 
+} 
+</td> 
+<td class="text
+small">@item.RequestDate.ToString("yyyy--
+muted 
+MM
+dd")</td> 
+<td class="text
+<a asp--
+end pe
+3"> 
+controller="ServiceRequest" asp
+action="UpdateStatus" asp
+route
+id="@item.RequestId" class="btn btn--
+outline
+py
+0"> 
+} 
+Update Status 
+</a> 
+</td> 
+</tr> 
+primary btn
+sm 
+Tejas  (3122) 
+BATCH: A 
+|118
+118 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+Tejas  (3122) BATCH: A 
+119 
+ 
+ 
+                    } 
+                    else 
+                    { 
+                        <tr> 
+                            <td colspan="8" class="text-center py-4 text-muted"> 
+                                No service requests found. Click <a asp
+controller="ServiceRequest" asp-action="Create">here</a> to create one! 
+                            </td> 
+                        </tr> 
+                    } 
+                </tbody> 
+            </table> 
+        </div> 
+    </div> 
+</div> 
+ 
+<div class="card border-0 shadow-sm bg-white"> 
+    <div class="card-body"> 
+        <h5 class="fw-bold mb-2">REST API Endpoints Available</h5> 
+        <p class="text-muted small mb-3">The portal also includes ASP.NET Core REST API 
+controller for third-party client integrations:</p> 
+        <div class="row g-2"> 
+            <div class="col-md-4"> 
+                <div class="p-2 border rounded bg-light"> 
+                    <span class="badge bg-success me-1">GET</span> 
+                    <code>/api/ServiceApi</code> 
+                    <div class="small text-muted mt-1">Fetch all service requests in 
+JSON</div> 
+                </div> 
+            </div> 
+            <div class="col-md-4"> 
+                <div class="p-2 border rounded bg-light"> 
+                    <span class="badge bg-primary me-1">POST</span> 
+                    <code>/api/ServiceApi</code> 
+                    <div class="small text-muted mt-1">Create a new service request</div> 
+                </div> 
+            </div> 
+|119
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+<div class="col
+md
+<div class="p
+4"> 
+2 border rounded bg
+<span class="badge bg
+light"> 
+warning text
+dark me
+1">PUT</span> 
+<code>/api/ServiceApi/UpdateStatus/{id}</code> 
+<div class="small text
+muted mt
+</div> 
+</div> 
+</div> 
+</div> 
+</div> 
+1">Update status for request ID</div> 
+Tejas  (3122) 
+BATCH: A 
+|120
+120 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+Tejas  (3122) BATCH: A 
+121 
+ 
+ 
+Source:  Create.cshtml 
+@model StudentCampusPortal.Models.ServiceRequest 
+ 
+@{ 
+    ViewData["Title"] = "Create Request"; 
+} 
+ 
+<div class="row justify-content-center"> 
+    <div class="col-lg-8"> 
+        <div class="card border-0 shadow-sm"> 
+            <div class="card-header bg-white py-3 border-bottom"> 
+                <h4 class="mb-0 fw-bold text-primary">Create Campus Service Request</h4> 
+                <p class="text-muted small mb-0">Fill in the details below to raise a 
+campus service ticket.</p> 
+            </div> 
+            <div class="card-body p-4"> 
+                <form asp-action="Create" method="post"> 
+                    @Html.AntiForgeryToken() 
+ 
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div> 
+ 
+                    <div class="mb-3"> 
+                        <label asp-for="StudentName" class="form-label fw-semibold">Student 
+Name <span class="text-danger">*</span></label> 
+                        <input asp-for="StudentName" class="form-control" placeholder="e.g. 
+Tejas Andodariya" /> 
+                        <span asp-validation-for="StudentName" class="text-danger 
+small"></span> 
+                    </div> 
+ 
+                    <div class="mb-3"> 
+                        <label asp-for="Department" class="form-label fw
+semibold">Department <span class="text-danger">*</span></label> 
+                        <input asp-for="Department" class="form-control" placeholder="e.g. 
+Computer Engineering" /> 
+|121
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+Tejas  (3122) BATCH: A 
+122 
+ 
+ 
+                        <span asp-validation-for="Department" class="text-danger 
+small"></span> 
+                    </div> 
+ 
+                    <div class="row"> 
+                        <div class="col-md-6 mb-3"> 
+                            <label asp-for="ServiceType" class="form-label fw
+semibold">Service Type <span class="text-danger">*</span></label> 
+                            <select asp-for="ServiceType" class="form-select"> 
+                                <option value="">-- Select Service Type --</option> 
+                                <option value="IT Support">IT Support (Wi-Fi, PC, 
+Lab)</option> 
+                                <option value="Library">Library (Books, IEEE, 
+Portal)</option> 
+                                <option value="Maintenance">Maintenance (AC, Projector, 
+Electrical)</option> 
+                                <option value="Transport">Transport (Bus, Parking, 
+Pass)</option> 
+                            </select> 
+                            <span asp-validation-for="ServiceType" class="text-danger 
+small"></span> 
+                        </div> 
+ 
+                        <div class="col-md-6 mb-3"> 
+                            <label asp-for="Priority" class="form-label fw
+semibold">Priority <span class="text-danger">*</span></label> 
+                            <select asp-for="Priority" class="form-select"> 
+                                <option value="Low">Low</option> 
+                                <option value="Medium" selected>Medium</option> 
+                                <option value="High">High</option> 
+                            </select> 
+                            <span asp-validation-for="Priority" class="text-danger 
+small"></span> 
+                        </div> 
+                    </div> 
+ 
+                    <div class="mb-3"> 
+|122
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+<label asp
+Description <span class="text--
+for="Description" class="form
+danger">*</span></label> 
+<textarea asp--
+label fw
+semibold">Problem 
+for="Description" rows="4" class="form
+control" 
+placeholder="Describe the problem or service needed in detail..."></textarea> 
+<span asp
+validation
+small"></span> 
+</div> 
+<div class="d
+flex justify
+for="Description" class="text
+content
+between align--
+items
+danger 
+center mt
+border
+top"> 
+<a asp
+action="Index" class="btn btn
+&larr; Back to List 
+</a> 
+<button type="submit" class="btn btn
+outline--
+secondary"> 
+primary px
+4 fw--
+4 pt
+semibold"> 
+Submit Request 
+</button> 
+</div> 
+</form> 
+</div> 
+</div> 
+</div> 
+</div> 
+@section Scripts { 
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");} 
+} 
+2 
+Tejas  (3122) 
+BATCH: A 
+|123
+123 
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+Tejas  (3122) BATCH: A 
+124 
+ 
+ 
+Source: UpdateStatus.cshtml 
+@model StudentCampusPortal.Models.ServiceRequest 
+ 
+@{ 
+    ViewData["Title"] = "Update Status"; 
+} 
+ 
+<div class="row justify-content-center"> 
+    <div class="col-lg-6 col-md-8"> 
+        <div class="card border-0 shadow-sm"> 
+            <div class="card-header bg-white py-3 border-bottom"> 
+                <h4 class="mb-0 fw-bold text-primary">Update Request Status</h4> 
+                <p class="text-muted small mb-0">Change the lifecycle status of Request 
+#@ViewBag.RequestId</p> 
+            </div> 
+            <div class="card-body p-4"> 
+                <div class="mb-3 p-3 bg-light rounded border"> 
+                    <div class="row mb-1"> 
+                        <div class="col-5 text-muted small">Request ID:</div> 
+                        <div class="col-7 fw-bold">#@ViewBag.RequestId</div> 
+                    </div> 
+                    <div class="row mb-1"> 
+                        <div class="col-5 text-muted small">Student Name:</div> 
+                        <div class="col-7 fw-semibold">@ViewBag.StudentName</div> 
+                    </div> 
+                    <div class="row mb-1"> 
+                        <div class="col-5 text-muted small">Service Type:</div> 
+                        <div class="col-7"><span class="badge bg
+secondary">@ViewBag.ServiceType</span></div> 
+                    </div> 
+                    <div class="row"> 
+                        <div class="col-5 text-muted small">Current Status:</div> 
+                        <div class="col-7"> 
+                            <span class="badge bg-info text
+dark">@ViewBag.CurrentStatus</span> 
+                        </div> 
+|124
+FACULTY OF ENGINEERING AND TECHNOLOGY 
+Department of Computer Engineering 
+01CE1523 - .NET Technologies 
+</div> 
+</div> 
+<form asp
+action="UpdateStatus" method="post"> 
+@Html.AntiForgeryToken() 
+<input type="hidden" name="id" value="@ViewBag.RequestId" /> 
+<div class="mb
+4"> 
+<label for="status" class="form
+Status</label> 
+label fw
+semibold">New 
+<select id="status" name="status" class="form
+lg"> 
+select form
+select
+<option value="Pending" selected="@(ViewBag.CurrentStatus == 
+"Pending")">Pending</option> 
+<option value="In Progress" selected="@(ViewBag.CurrentStatus 
+== "In Progress")">In Progress</option> 
+<option value="Completed" selected="@(ViewBag.CurrentStatus == 
+"Completed")">Completed</option> 
+</select> 
+</div> 
+<div class="d
+border
+top"> 
+<a asp
+flex justify--
+content
+between align
+action="Index" class="btn btn
+items
+outline--
+center pt
+secondary"> 
+&larr; Cancel 
+</a> 
+<button type="submit" class="btn btn
+Save Status 
+</button> 
+</div> 
+</form> 
+</div
+> 
