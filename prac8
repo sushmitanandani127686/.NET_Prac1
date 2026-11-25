@@ -1,0 +1,280 @@
+-- Create the Inventory table in InventoryDB
+CREATE TABLE Inventory
+(
+ItemID INT PRIMARY KEY IDENTITY(1,1), -- auto-increment primary key
+ItemName VARCHAR(100) NOT NULL,
+Quantity INT NOT NULL,
+Price DECIMAL(10,2) NOT NULL
+);
+-- Insert sample records
+INSERT INTO Inventory (ItemName, Quantity, Price)
+VALUES
+('Keyboard', 10, 500.00),
+('Mouse', 20, 250.00),
+('Monitor', 5, 7500.00);
+Code : Solution Explorer : Inventory.aspx
+<%@ Page Language="C#" AutoEventWireup="true"
+CodeBehind="Inventory.aspx.cs" Inherits="WebApplication1.Inventory" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<title>Inventory Management System</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+table { border-collapse: collapse; }
+.btn { margin: 8px 6px 8px 0; padding: 4px 12px; }
+</style>
+</head>
+<body>
+<form id="form1" runat="server">
+<h2>Inventory Management System</h2>
+<!-- Input fields -->
+<table cellpadding="5">
+<tr>
+<td>Item ID:</td>
+<td><asp:TextBox ID="txtItemID" runat="server" /></td>
+</tr>
+<tr>
+<td>Item Name:</td>
+
+FACULTY OF ENGINEERING AND TECHNOLOGY
+Department of Computer Engineering
+01CE1523 - .NET Technologies
+
+Sushmita_339 BATCH: A |7
+<td><asp:TextBox ID="txtItemName" runat="server" /></td>
+</tr>
+<tr>
+<td>Quantity:</td>
+<td><asp:TextBox ID="txtQuantity" runat="server" /></td>
+</tr>
+<tr>
+<td>Price:</td>
+<td><asp:TextBox ID="txtPrice" runat="server" /></td>
+</tr>
+</table>
+<!-- CRUD buttons -->
+<asp:Button ID="btnInsert" runat="server" Text="Insert"
+CssClass="btn" OnClick="btnInsert_Click" />
+<asp:Button ID="btnView" runat="server" Text="View All"
+CssClass="btn" OnClick="btnView_Click" />
+<asp:Button ID="btnUpdate" runat="server" Text="Update"
+CssClass="btn" OnClick="btnUpdate_Click" />
+<asp:Button ID="btnDelete" runat="server" Text="Delete"
+CssClass="btn" OnClick="btnDelete_Click" />
+<asp:Button ID="btnClear" runat="server" Text="Clear"
+CssClass="btn" OnClick="btnClear_Click" />
+<!-- Status / validation message -->
+<br />
+<asp:Label ID="lblMessage" runat="server" ForeColor="Green" />
+<br /><br />
+<!-- Inventory grid (Cells[0] = Select link, Cells[1..4] = data) -->
+<asp:GridView ID="gvInventory" runat="server"
+AutoGenerateColumns="False" AutoGenerateSelectButton="True"
+CellPadding="5" BorderColor="Black" BorderWidth="1px"
+OnSelectedIndexChanged="gvInventory_SelectedIndexChanged">
+<Columns>
+<asp:BoundField DataField="ItemID" HeaderText="Item ID" />
+<asp:BoundField DataField="ItemName" HeaderText="Item Name" />
+<asp:BoundField DataField="Quantity" HeaderText="Quantity" />
+<asp:BoundField DataField="Price" HeaderText="Price" />
+</Columns>
+</asp:GridView>
+</form>
+</body>
+</html>
+Code : Solution Explorer : Inventory.aspx.cs
+using System;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.UI.WebControls;
+namespace WebApplication1
+{
+public partial class Inventory : System.Web.UI.Page
+{
+// Connection string read from Web.config
+
+FACULTY OF ENGINEERING AND TECHNOLOGY
+Department of Computer Engineering
+01CE1523 - .NET Technologies
+
+Sushmita_339 BATCH: A |8
+string cs = ConfigurationManager
+.ConnectionStrings["InventoryConnection"]
+.ConnectionString;
+// Load the grid only on the first request, not on every postback
+protected void Page_Load(object sender, EventArgs e)
+{
+if (!IsPostBack)
+{
+LoadData();
+}
+}
+// READ: Display all inventory items
+void LoadData()
+{
+using (SqlConnection con = new SqlConnection(cs))
+{
+SqlDataAdapter da = new SqlDataAdapter(
+"SELECT * FROM Inventory ORDER BY ItemID", con);
+DataTable dt = new DataTable();
+da.Fill(dt);
+gvInventory.DataSource = dt;
+gvInventory.DataBind();
+}
+}
+// CREATE: Insert a new item
+protected void btnInsert_Click(object sender, EventArgs e)
+{
+int qty;
+decimal price;
+// Server-side validation of the user input
+if (string.IsNullOrWhiteSpace(txtItemName.Text) ||
+!int.TryParse(txtQuantity.Text, out qty) || qty < 0 ||
+!decimal.TryParse(txtPrice.Text, out price) || price < 0)
+{
+lblMessage.Text = "Enter a valid name, quantity and price.";
+return;
+}
+// Parameterized query protects against SQL injection
+using (SqlConnection con = new SqlConnection(cs))
+using (SqlCommand cmd = new SqlCommand(
+"INSERT INTO Inventory (ItemName, Quantity, Price) " +
+"VALUES (@name, @qty, @price)", con))
+{
+cmd.Parameters.Add("@name", SqlDbType.VarChar, 100)
+.Value = txtItemName.Text.Trim();
+cmd.Parameters.Add("@qty", SqlDbType.Int).Value = qty;
+cmd.Parameters.Add("@price", SqlDbType.Decimal).Value = price;
+cmd.Parameters["@price"].Precision = 10;
+
+FACULTY OF ENGINEERING AND TECHNOLOGY
+Department of Computer Engineering
+01CE1523 - .NET Technologies
+
+Sushmita_339 BATCH: A |9
+cmd.Parameters["@price"].Scale = 2;
+con.Open();
+cmd.ExecuteNonQuery();
+}
+lblMessage.Text = "Item inserted successfully!";
+ClearFields();
+LoadData();
+}
+// READ: Refresh the table
+protected void btnView_Click(object sender, EventArgs e)
+{
+LoadData();
+lblMessage.Text = "Inventory records loaded.";
+}
+// UPDATE: Modify an existing item
+protected void btnUpdate_Click(object sender, EventArgs e)
+{
+int id, qty;
+decimal price;
+// Server-side validation of the user input
+if (!int.TryParse(txtItemID.Text, out id) ||
+string.IsNullOrWhiteSpace(txtItemName.Text) ||
+!int.TryParse(txtQuantity.Text, out qty) || qty < 0 ||
+!decimal.TryParse(txtPrice.Text, out price) || price < 0)
+{
+lblMessage.Text = "Enter a valid ID and item details.";
+return;
+}
+using (SqlConnection con = new SqlConnection(cs))
+using (SqlCommand cmd = new SqlCommand(
+"UPDATE Inventory SET ItemName=@name, Quantity=@qty, " +
+"Price=@price WHERE ItemID=@id", con))
+{
+cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+cmd.Parameters.Add("@name", SqlDbType.VarChar, 100)
+.Value = txtItemName.Text.Trim();
+cmd.Parameters.Add("@qty", SqlDbType.Int).Value = qty;
+cmd.Parameters.Add("@price", SqlDbType.Decimal).Value = price;
+cmd.Parameters["@price"].Precision = 10;
+cmd.Parameters["@price"].Scale = 2;
+con.Open();
+int rows = cmd.ExecuteNonQuery(); // rows affected
+lblMessage.Text = rows > 0
+? "Item updated successfully!"
+: "Item ID not found.";
+}
+ClearFields();
+
+FACULTY OF ENGINEERING AND TECHNOLOGY
+Department of Computer Engineering
+01CE1523 - .NET Technologies
+
+Sushmita_339 BATCH: A |10
+LoadData();
+}
+// DELETE: Remove an item
+protected void btnDelete_Click(object sender, EventArgs e)
+{
+int id;
+if (!int.TryParse(txtItemID.Text, out id))
+{
+lblMessage.Text = "Enter or select a valid Item ID.";
+return;
+}
+using (SqlConnection con = new SqlConnection(cs))
+using (SqlCommand cmd = new SqlCommand(
+"DELETE FROM Inventory WHERE ItemID=@id", con))
+{
+cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+con.Open();
+int rows = cmd.ExecuteNonQuery(); // rows affected
+lblMessage.Text = rows > 0
+? "Item deleted successfully!"
+: "Item ID not found.";
+}
+ClearFields();
+LoadData();
+}
+// Select a row to edit or delete
+protected void gvInventory_SelectedIndexChanged(
+object sender, EventArgs e)
+{
+GridViewRow row = gvInventory.SelectedRow;
+// Cells[0] is the "Select" link, data starts at Cells[1]
+txtItemID.Text = row.Cells[1].Text;
+txtItemName.Text = Server.HtmlDecode(row.Cells[2].Text);
+txtQuantity.Text = row.Cells[3].Text;
+txtPrice.Text = row.Cells[4].Text;
+lblMessage.Text = "Item selected. You can update or delete it.";
+}
+// Clear all input boxes and the status message
+protected void btnClear_Click(object sender, EventArgs e)
+{
+ClearFields();
+lblMessage.Text = "";
+}
+// Helper: reset the input boxes
+void ClearFields()
+{
+
+FACULTY OF ENGINEERING AND TECHNOLOGY
+Department of Computer Engineering
+01CE1523 - .NET Technologies
+
+Sushmita_339 BATCH: A |11
+txtItemID.Text = "";
+txtItemName.Text = "";
+txtQuantity.Text = "";
+txtPrice.Text = "";
+}
+}
+}
+Code : Web.config
+Add the following connection string inside the <configuration> element of Web.config.
+<configuration>
+<!-- Database connection used by Inventory.aspx.cs -->
+<connectionStrings>
+<add name="InventoryConnection"
+connectionString="Data Source=(localdb)\MSSQLLocalDB;
+Initial Catalog=InventoryDB;
+Integrated Security=True"
+providerName="System.Data.SqlClient" />
+</connectionStrings>
+</configuration>
